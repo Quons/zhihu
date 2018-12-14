@@ -1,0 +1,209 @@
+basePath: '{{.BasePath}}'
+definitions:
+  vo.CourseVo:
+    properties:
+      courseId:
+        type: integer
+      courseImage:
+        type: string
+      courseName:
+        type: string
+    type: object
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: An example of gin
+  license:
+    name: MIT
+    url: https://github.com/Quons/go-gin-example/blob/master/LICENSE
+  termsOfService: https://github.com/Quons/go-gin-example
+  title: Golang Gin API
+  version: "1.0"
+paths:
+  /api/v1/articleAndTag:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 新增文章和标签
+  /api/v1/articles:
+    get:
+      parameters:
+      - description: TagID
+        in: query
+        name: tag_id
+        type: integer
+      - description: Token
+        in: query
+        name: token
+        type: string
+      - description: State
+        in: query
+        name: state
+        type: integer
+      - description: CreatedBy
+        in: query
+        name: created_by
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[{"id":3,"created_on":1516937037,"modified_on":0,"tag_id":11,"tag":{"id":11,"created_on":1516851591,"modified_on":0,"name":"312321","created_by":"4555","modified_by":"","state":1},"content":"5555","created_by":"2412","modified_by":"","state":1}],"msg":"ok"}'
+          schema:
+            type: string
+      summary: 获取多个文章
+    post:
+      parameters:
+      - description: TagID
+        in: query
+        name: tag_id
+        required: true
+        type: integer
+      - description: Title
+        in: query
+        name: title
+        required: true
+        type: string
+      - description: Desc
+        in: query
+        name: desc
+        required: true
+        type: string
+      - description: Content
+        in: query
+        name: content
+        required: true
+        type: string
+      - description: CreatedBy
+        in: query
+        name: created_by
+        required: true
+        type: string
+      - description: State
+        in: query
+        name: state
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 新增文章
+  /api/v1/articles/{id}:
+    delete:
+      parameters:
+      - {}
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":400,"data":{},"msg":"请求参数错误"}'
+          schema:
+            type: string
+      summary: 删除文章
+    get:
+      parameters:
+      - {}
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"id":3,"created_on":1516937037,"modified_on":0,"tag_id":11,"tag":{"id":11,"created_on":1516851591,"modified_on":0,"name":"312321","created_by":"4555","modified_by":"","state":1},"content":"5555","created_by":"2412","modified_by":"","state":1},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 获取单个文章
+      tags:
+      - 文章
+    put:
+      parameters:
+      - {}
+      - description: TagID
+        in: query
+        name: tag_id
+        type: string
+      - description: Title
+        in: query
+        name: title
+        type: string
+      - description: Desc
+        in: query
+        name: desc
+        type: string
+      - description: Content
+        in: query
+        name: content
+        type: string
+      - description: ModifiedBy
+        in: query
+        name: modified_by
+        required: true
+        type: string
+      - description: State
+        in: query
+        name: state
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":400,"data":{},"msg":"请求参数错误"}'
+          schema:
+            type: string
+      summary: 修改文章
+  /api/v1/getCourse:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 获取单个课程description
+      parameters:
+      - description: 用户token
+        in: formData
+        name: token
+        required: true
+        type: string
+      - description: 课程ID
+        in: formData
+        name: courseId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/vo.CourseVo'
+            type: object
+        "10000":
+          description: '{"code":10000,"data":{},"msg":"服务器错误"}'
+          schema:
+            type: string
+        "20000":
+          description: '{"code":20000,"data":{},"msg":"参数错误"}'
+          schema:
+            type: string
+      summary: 获取单个课程
+      tags:
+      - 课程
+  /api/v1/tags/import:
+    post:
+      parameters:
+      - {}
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"image_save_url":"upload/images/96a.jpg",
+            "image_url": "http://..."}'
+          schema:
+            type: string
+      summary: 上传图片
+swagger: "2.0"
